@@ -25,7 +25,8 @@
     {
       "id": 1,
       "title": "Java for Beginners",
-      "description": "An introductory course to Java programming language."
+      "description": "An introductory course to Java programming language.",
+      "categoryId": 1
     },
     {
       "id": 2,
