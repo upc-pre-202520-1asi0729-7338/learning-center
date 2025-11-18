@@ -1,5 +1,3 @@
-import {resource} from '@angular/core';
-
 export class SignInCommand {
   private _username: string;
   private _password: string;
