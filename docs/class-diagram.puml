@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @startuml Class Diagram
 
 package "Shared" {
