@@ -1,8 +1,8 @@
 import {BaseEntity} from '../domain/model/base-entity';
 import {BaseResource, BaseResponse} from './base-response';
 import {BaseAssembler} from './base-assembler';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, map, Observable, throwError} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {catchError, map, Observable} from 'rxjs';
 import {ErrorHandlingEnabledBaseType} from './error-handling-enabled-base-type';
 
 export abstract class BaseApiEndpoint<

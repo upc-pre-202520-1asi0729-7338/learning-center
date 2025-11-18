@@ -3,8 +3,7 @@ import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from '@angula
 import {ActivatedRoute, Router} from '@angular/router';
 import {LearningStore} from '../../../application/learning.store';
 import {Category} from '../../../domain/model/category.entity';
-import {MatError, MatFormField} from '@angular/material/form-field';
-import {MatLabel} from '@angular/material/form-field';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {TranslatePipe} from '@ngx-translate/core';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
