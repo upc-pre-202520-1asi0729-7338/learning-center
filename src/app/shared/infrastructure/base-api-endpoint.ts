@@ -3,14 +3,19 @@ import {BaseResource, BaseResponse} from './base-response';
 import {BaseAssembler} from './base-assembler';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, map, Observable, throwError} from 'rxjs';
+import {ErrorHandlingEnabledBaseType} from './error-handling-enabled-base-type';
 
 export abstract class BaseApiEndpoint<
   TEntity extends BaseEntity,
   TResource extends BaseResource,
   TResponse extends BaseResponse,
   TAssembler extends BaseAssembler<TEntity, TResource, TResponse>
-> {
-  constructor(protected http: HttpClient, protected endpointUrl: string, protected assembler: TAssembler) {}
+>
+extends ErrorHandlingEnabledBaseType
+{
+  protected constructor(protected http: HttpClient, protected endpointUrl: string, protected assembler: TAssembler) {
+    super();
+  }
 
   getAll() {
     return this.http.get<TResponse | TResource[]>(this.endpointUrl).pipe(
@@ -54,17 +59,5 @@ export abstract class BaseApiEndpoint<
     );
   }
 
-  private handleError(operation: string) {
-    return (error: HttpErrorResponse): Observable<never> => {
-      let errorMessage = operation;
-      if (error.status === 404) {
-        errorMessage = `Resource not found: ${operation}`;
-      } else if (error.error instanceof ErrorEvent) {
-        errorMessage = `${operation}: ${error.error.message}`;
-      } else {
-        errorMessage = `${operation}: ${error.statusText || 'Unexpected error'}`;
-      }
-      return throwError(() => new Error(errorMessage));
-    }
-  }
+
 }
