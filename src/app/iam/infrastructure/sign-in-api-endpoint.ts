@@ -8,11 +8,24 @@ import {SignInResource, SignInResponse} from './sign-in-response';
 
 const signInApiEndpointUrl = `${environment.platformProviderApiBaseUrl}/${environment.platformProviderSignInEndpointPath}`;
 
+/**
+ * API endpoint for handling user sign-in operations.
+ */
 export class SignInApiEndpoint extends ErrorHandlingEnabledBaseType {
+  /**
+   * Creates a new SignInApiEndpoint instance.
+   * @param http - The HTTP client for making requests.
+   * @param assembler - The assembler for converting between domain and API models.
+   */
   constructor(private http: HttpClient, private assembler: SignInAssembler) {
     super();
   }
 
+  /**
+   * Signs in a user using the provided sign-in command.
+   * @param signInCommand - The command containing sign-in credentials.
+   * @returns An observable of the sign-in resource.
+   */
   signIn(signInCommand: SignInCommand): Observable<SignInResource> {
     const signInRequest = this.assembler.toRequestFromCommand(signInCommand);
     return this.http.post<SignInResponse>(signInApiEndpointUrl, signInRequest).pipe(

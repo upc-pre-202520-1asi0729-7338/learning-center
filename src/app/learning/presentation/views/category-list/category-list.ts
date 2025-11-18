@@ -47,15 +47,24 @@ import {MatButton, MatIconButton} from '@angular/material/button';
   templateUrl: './category-list.html',
   styleUrl: './category-list.css'
 })
+/**
+ * Component for displaying and managing a list of categories.
+ */
 export class CategoryList {
   readonly store = inject(LearningStore);
   protected router = inject(Router);
 
+  /**
+   * Columns to display in the table.
+   */
   displayedColumns: string[] = ['id', 'name', 'actions'];
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  /**
+   * Data source for the table, computed from the store's categories.
+   */
   dataSource = computed(() => {
     const source = new MatTableDataSource(this.store.categories());
     source.sort = this.sort;
@@ -63,18 +72,33 @@ export class CategoryList {
     return source;
   });
 
+  /**
+   * Navigates to the edit page for the specified category.
+   * @param id - The ID of the category to edit.
+   */
   editCategory(id: number) {
     this.router.navigate(['learning/categories', id, 'edit']).then();
   }
 
+  /**
+   * Deletes the specified category.
+   * @param id - The ID of the category to delete.
+   */
   deleteCategory(id: number) {
     this.store.deleteCategory(id);
   }
 
+  /**
+   * Navigates to the new category creation page.
+   */
   navigateToNew() {
     this.router.navigate(['learning/categories/new']).then();
   }
 
+  /**
+   * Lifecycle hook that runs after the view has been checked.
+   * Ensures the data source's paginator and sort are set.
+   */
   ngAfterViewChecked() {
     if (this.dataSource().paginator !== this.paginator) {
       this.dataSource().paginator = this.paginator;

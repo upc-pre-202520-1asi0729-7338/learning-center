@@ -10,7 +10,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
  *
  * Learning store,responsible for managing the state of the learning context.
  * It provides signals for categories, courses, loading state, and error messages.
- * It also provides methods for adding, updating, deleting categories and courses,
+ * It also provides methods for adding, updating, and deleting categories and courses,
  * as well as loading categories and courses from the API.
  *
  * @example
@@ -46,14 +46,28 @@ export class LearningStore {
     this.loadCourses();
   }
 
+  /**
+   * Retrieves a category by its ID.
+   * @param id - The ID of the category, can be null or undefined.
+   * @returns A signal containing the category or undefined.
+   */
   getCategoryById(id: number | null | undefined): Signal<Category | undefined> {
     return computed(() => id ? this.categories().find(category => category.id === id) : undefined);
   }
 
+  /**
+   * Retrieves a course by its ID.
+   * @param id - The ID of the course.
+   * @returns A signal containing the course or undefined.
+   */
   getCourseById(id: number): Signal<Course | undefined> {
     return computed(() => id ? this.courses().find(c => c.id === id) : undefined);
   }
 
+  /**
+   * Adds a new category.
+   * @param category - The category to add.
+   */
   addCategory(category: Category): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
@@ -69,6 +83,10 @@ export class LearningStore {
     })
   }
 
+  /**
+   * Updates an existing category.
+   * @param category - The category to update.
+   */
   updateCategory(category: Category): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
@@ -85,6 +103,10 @@ export class LearningStore {
     });
   }
 
+  /**
+   * Deletes a category by its ID.
+   * @param id - The ID of the category to delete.
+   */
   deleteCategory(id: number): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
@@ -100,6 +122,10 @@ export class LearningStore {
     });
   }
 
+  /**
+   * Adds a new course.
+   * @param course - The course to add.
+   */
   addCourse(course: Course): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
@@ -115,6 +141,10 @@ export class LearningStore {
     });
   }
 
+  /**
+   * Updates an existing course.
+   * @param course - The course to update.
+   */
   updateCourse(course: Course): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
@@ -130,6 +160,10 @@ export class LearningStore {
     });
   }
 
+  /**
+   * Deletes a course by its ID.
+   * @param id - The ID of the course to delete.
+   */
   deleteCourse(id: number): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
@@ -145,6 +179,9 @@ export class LearningStore {
     });
   }
 
+  /**
+   * Loads categories from the API.
+   */
   loadCategories(): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
@@ -160,6 +197,9 @@ export class LearningStore {
     });
   }
 
+  /**
+   * Loads courses from the API.
+   */
   loadCourses(): void {
     this._loadingSignal.set(true);
     this._errorSignal.set(null);
